@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF4AAD602269AE9A007CA090 /* CustomDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4AAD5F2269AE9A007CA090 /* CustomDrawingView.m */; };
 		BFD4EAC1213E3E86000B6E3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD4EAC0213E3E86000B6E3E /* AppDelegate.m */; };
 		BFD4EAC4213E3E86000B6E3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD4EAC3213E3E86000B6E3E /* ViewController.m */; };
 		BFD4EAC7213E3E86000B6E3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFD4EAC5213E3E86000B6E3E /* Main.storyboard */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BF4AAD5E2269AE9A007CA090 /* CustomDrawingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDrawingView.h; sourceTree = "<group>"; };
+		BF4AAD5F2269AE9A007CA090 /* CustomDrawingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomDrawingView.m; sourceTree = "<group>"; };
 		BFD4EABC213E3E86000B6E3E /* CoreAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFD4EABF213E3E86000B6E3E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BFD4EAC0213E3E86000B6E3E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 				BFD4EAC0213E3E86000B6E3E /* AppDelegate.m */,
 				BFD4EAC2213E3E86000B6E3E /* ViewController.h */,
 				BFD4EAC3213E3E86000B6E3E /* ViewController.m */,
+				BF4AAD5E2269AE9A007CA090 /* CustomDrawingView.h */,
+				BF4AAD5F2269AE9A007CA090 /* CustomDrawingView.m */,
 				BFD4EAC5213E3E86000B6E3E /* Main.storyboard */,
 				BFD4EAC8213E3E8A000B6E3E /* Assets.xcassets */,
 				BFD4EACA213E3E8A000B6E3E /* LaunchScreen.storyboard */,
@@ -262,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF4AAD602269AE9A007CA090 /* CustomDrawingView.m in Sources */,
 				BFD4EAC4213E3E86000B6E3E /* ViewController.m in Sources */,
 				BFD4EACF213E3E8A000B6E3E /* main.m in Sources */,
 				BFD4EAC1213E3E86000B6E3E /* AppDelegate.m in Sources */,
