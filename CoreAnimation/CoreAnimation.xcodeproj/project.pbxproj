@@ -16,6 +16,10 @@
 		BFD4EACF213E3E8A000B6E3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD4EACE213E3E8A000B6E3E /* main.m */; };
 		BFD4EAD9213E3E8A000B6E3E /* CoreAnimationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD4EAD8213E3E8A000B6E3E /* CoreAnimationTests.m */; };
 		BFD4EAE4213E3E8A000B6E3E /* CoreAnimationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD4EAE3213E3E8A000B6E3E /* CoreAnimationUITests.m */; };
+		BFD684FA227044D700E74DF0 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFD684F9227044D700E74DF0 /* GLKit.framework */; };
+		BFD684FE227044F200E74DF0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFD684FD227044F200E74DF0 /* OpenGLES.framework */; };
+		BFD68507227055DD00E74DF0 /* LayerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD68506227055DD00E74DF0 /* LayerLabel.m */; };
+		BFD6850A227072E200E74DF0 /* ReflectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD68509227072E200E74DF0 /* ReflectionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +58,13 @@
 		BFD4EADF213E3E8A000B6E3E /* CoreAnimationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreAnimationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFD4EAE3213E3E8A000B6E3E /* CoreAnimationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreAnimationUITests.m; sourceTree = "<group>"; };
 		BFD4EAE5213E3E8A000B6E3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BFD684F9227044D700E74DF0 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		BFD684FB227044EA00E74DF0 /* libETLDIAGLoggingDynamic.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libETLDIAGLoggingDynamic.tbd; path = usr/lib/libETLDIAGLoggingDynamic.tbd; sourceTree = SDKROOT; };
+		BFD684FD227044F200E74DF0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		BFD68505227055DD00E74DF0 /* LayerLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerLabel.h; sourceTree = "<group>"; };
+		BFD68506227055DD00E74DF0 /* LayerLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerLabel.m; sourceTree = "<group>"; };
+		BFD68508227072E200E74DF0 /* ReflectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReflectionView.h; sourceTree = "<group>"; };
+		BFD68509227072E200E74DF0 /* ReflectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReflectionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFD684FE227044F200E74DF0 /* OpenGLES.framework in Frameworks */,
+				BFD684FA227044D700E74DF0 /* GLKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +101,7 @@
 				BFD4EAD7213E3E8A000B6E3E /* CoreAnimationTests */,
 				BFD4EAE2213E3E8A000B6E3E /* CoreAnimationUITests */,
 				BFD4EABD213E3E86000B6E3E /* Products */,
+				BFD684F8227044D700E74DF0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,8 +122,12 @@
 				BFD4EAC0213E3E86000B6E3E /* AppDelegate.m */,
 				BFD4EAC2213E3E86000B6E3E /* ViewController.h */,
 				BFD4EAC3213E3E86000B6E3E /* ViewController.m */,
+				BFD68508227072E200E74DF0 /* ReflectionView.h */,
+				BFD68509227072E200E74DF0 /* ReflectionView.m */,
 				BF4AAD5E2269AE9A007CA090 /* CustomDrawingView.h */,
 				BF4AAD5F2269AE9A007CA090 /* CustomDrawingView.m */,
+				BFD68505227055DD00E74DF0 /* LayerLabel.h */,
+				BFD68506227055DD00E74DF0 /* LayerLabel.m */,
 				BFD4EAC5213E3E86000B6E3E /* Main.storyboard */,
 				BFD4EAC8213E3E8A000B6E3E /* Assets.xcassets */,
 				BFD4EACA213E3E8A000B6E3E /* LaunchScreen.storyboard */,
@@ -135,6 +153,16 @@
 				BFD4EAE5213E3E8A000B6E3E /* Info.plist */,
 			);
 			path = CoreAnimationUITests;
+			sourceTree = "<group>";
+		};
+		BFD684F8227044D700E74DF0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BFD684FD227044F200E74DF0 /* OpenGLES.framework */,
+				BFD684FB227044EA00E74DF0 /* libETLDIAGLoggingDynamic.tbd */,
+				BFD684F9227044D700E74DF0 /* GLKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,9 +296,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF4AAD602269AE9A007CA090 /* CustomDrawingView.m in Sources */,
+				BFD68507227055DD00E74DF0 /* LayerLabel.m in Sources */,
 				BFD4EAC4213E3E86000B6E3E /* ViewController.m in Sources */,
 				BFD4EACF213E3E8A000B6E3E /* main.m in Sources */,
 				BFD4EAC1213E3E86000B6E3E /* AppDelegate.m in Sources */,
+				BFD6850A227072E200E74DF0 /* ReflectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

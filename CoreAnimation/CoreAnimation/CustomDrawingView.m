@@ -25,7 +25,7 @@
  * process (typically by setting the `contents' property). */
 
 - (void)displayLayer:(CALayer *)layer {
-    NSLog(@"displayLayer: - current thread: %@", [NSThread currentThread]);
+    //NSLog(@"displayLayer: - current thread: %@", [NSThread currentThread]);
     
     UIImage *image = [UIImage imageNamed:@"question"];
     
@@ -59,7 +59,7 @@
 
 
 - (void)layoutSublayersOfLayer:(CALayer *)layer {
-    NSLog(@"layoutSublayersOfLayer: - current thread: %@", [NSThread currentThread]);
+    //NSLog(@"layoutSublayersOfLayer: - current thread: %@", [NSThread currentThread]);
 }
 
 
