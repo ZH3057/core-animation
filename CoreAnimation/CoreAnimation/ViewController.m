@@ -10,8 +10,10 @@
 #import "CustomDrawingView.h"
 #import <GLKit/GLKit.h>
 #import "LayerLabel.h"
+#import "ReflectionView.h"
+#import "ScrollLayerView.h"
 
-@interface ViewController ()
+@interface ViewController () <CAAnimationDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -34,6 +36,14 @@
 @property (nonatomic, strong) NSMutableArray<UIView *> *faces;
 @property (nonatomic, strong) UIView *containerView;
 @property (nonatomic, strong) UIView *transformlayerView;
+
+@property (nonatomic, strong) CALayer *colorLayer;
+@property (nonatomic, strong) UIView *colorView;
+
+@property (nonatomic, strong) CALayer *colorLayer1;
+
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) NSArray *images;
 
 @property (nonatomic, weak) UIView *lastView;
 
@@ -468,9 +478,179 @@
     
 // ********************* CAReplicatorLayer 反射
     
+    ReflectionView *relectonView = [[ReflectionView alloc] initWithFrame:CGRectMake(50, CGRectGetMaxY(self.lastView.frame) + 80, 100, 100)];
+    relectonView.backgroundColor = UIColor.cyanColor;
+    relectonView.layer.contents = (__bridge id)[UIImage imageNamed:@"question"].CGImage;
+    relectonView.layer.contentsGravity = kCAGravityResizeAspectFill;
+    
+    [self.scrollView addSubview:relectonView];
+    self.lastView = relectonView;
+    
+// ********************* CAScrollLayer
+    
+    ScrollLayerView *scrollView = [[ScrollLayerView alloc] initWithFrame:CGRectMake(50, CGRectGetMaxY(self.lastView.frame) + 80, 120, 80)];
+    
+    CALayer *layer1 = [CALayer layer];
+    layer1.frame = CGRectMake(0, 0, 120, 120);
+    layer1.contents = (__bridge id)[UIImage imageNamed:@"cool"].CGImage;
+    layer1.contentsGravity = kCAGravityResizeAspectFill;
+    [scrollView.layer addSublayer:layer1];
+    
+    [self.scrollView addSubview:scrollView];
+    self.lastView = scrollView;
+
+// ********************* CAEmitterLayer
+    
+    /*
+    UIView *emitterView = [[UIView alloc] init];
+    emitterView.frame = CGRectMake(50, CGRectGetMaxY(self.lastView.frame) + 20, CGRectGetWidth(self.view.bounds) - 100, 300);
+    emitterView.backgroundColor = UIColor.cyanColor;
+    
+    CAEmitterLayer *emitter = [CAEmitterLayer layer];
+    emitter.frame = emitterView.bounds;
+    [emitterView.layer addSublayer:emitter];
+    
+    emitter.renderMode = kCAEmitterLayerAdditive;
+    emitter.emitterPosition = CGPointMake(emitter.frame.size.width * 0.5, emitter.frame.size.height * 0.5);
+    CAEmitterCell *cell = [[CAEmitterCell alloc] init];
+    cell.contents = (__bridge id)[UIImage imageNamed:@"star"].CGImage;
+    cell.birthRate = 150;
+    cell.lifetime = 5.0;
+    cell.color = [UIColor colorWithRed:1 green:0.5 blue:0.1 alpha:1.0].CGColor;
+    cell.alphaSpeed = -0.4;
+    cell.velocity = 50;
+    cell.velocityRange = 50;
+    cell.emissionRange = M_PI * 2.0;
+    
+    //add particle template to emitter
+    emitter.emitterCells = @[cell];
+    
+    [self.scrollView addSubview:emitterView];
+    self.lastView = emitterView;
+     */
+    
+// ********************* 事务
+    
+    UIView *view24 = [[UIView alloc] init];
+    view24.frame = CGRectMake((CGRectGetWidth(self.view.bounds) - 200) * 0.5, CGRectGetMaxY(self.lastView.frame) + 20, 200, 200);
+    view24.backgroundColor = UIColor.whiteColor;
+    view24.layer.borderColor = UIColor.lightGrayColor.CGColor;
+    view24.layer.borderWidth = 1;
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeColor)];
+    [view24 addGestureRecognizer:recognizer];
+    self.colorLayer = [CALayer layer];
+    self.colorLayer.frame = CGRectMake(0, 0, 100, 100);
+    self.colorLayer.backgroundColor = UIColor.blueColor.CGColor;
+    [view24.layer addSublayer:self.colorLayer];
+    
+    self.colorView = [[UIView alloc] init];
+    self.colorView.backgroundColor = UIColor.redColor;
+    self.colorView.frame = CGRectMake(100, 100, 100, 100);
+    [view24 addSubview:self.colorView];
+    
+    [self.scrollView addSubview:view24];
+    self.lastView = view24;
+    
+    //test layer action when outside of animation block
+    NSLog(@"Outside: %@", [self.colorView actionForLayer:self.colorView.layer forKey:@"backgroundColor"]);
+    //begin animation block
+    [UIView beginAnimations:nil context:nil];
+    //test layer action when inside of animation block
+    NSLog(@"Inside: %@", [self.colorView actionForLayer:self.colorView.layer forKey:@"backgroundColor"]);
+    //end animation block
+    [UIView commitAnimations];
+    
+    
+// ********************* 属性动画
+    
+    UIView *view25 = [[UIView alloc] init];
+    view25.frame = CGRectMake((CGRectGetWidth(self.view.bounds) - 200) * 0.5, CGRectGetMaxY(self.lastView.frame) + 40, 200, 200);
+    view25.backgroundColor = UIColor.whiteColor;
+    view25.layer.borderColor = UIColor.lightGrayColor.CGColor;
+    view25.layer.borderWidth = 1;
+    UITapGestureRecognizer *recognizer1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeColor1)];
+    [view25 addGestureRecognizer:recognizer1];
+    self.colorLayer1 = [CALayer layer];
+    self.colorLayer1.frame = CGRectMake(50, 50, 100, 100);
+    self.colorLayer1.backgroundColor = UIColor.blueColor.CGColor;
+    [view25.layer addSublayer:self.colorLayer1];
+    
+    [self.scrollView addSubview:view25];
+    self.lastView = view25;
+    
+// ********************* 关键帧动画
+    
+    UIView *view26 = [[UIView alloc] init];
+    view26.frame = CGRectMake(0, CGRectGetMaxY(self.lastView.frame) + 40, CGRectGetWidth(self.view.bounds), 200);
+    view26.backgroundColor = UIColor.lightGrayColor;
+    
+    UIBezierPath *bezierPath = [[UIBezierPath alloc] init];
+    [bezierPath moveToPoint:CGPointMake(44, 100)];
+    [bezierPath addCurveToPoint:CGPointMake(300, 100) controlPoint1:CGPointMake(75, 0) controlPoint2:CGPointMake(225, 300)];
+    
+    CAShapeLayer *pathLayer = [CAShapeLayer layer];
+    pathLayer.path = bezierPath.CGPath;
+    pathLayer.fillColor = [UIColor clearColor].CGColor;
+    pathLayer.strokeColor = [UIColor redColor].CGColor;
+    pathLayer.lineWidth = 3.0f;
+    [view26.layer addSublayer:pathLayer];
+    
+    CALayer *shipLayer = [CALayer layer];
+    shipLayer.frame = CGRectMake(0, 0, 64, 64);
+    shipLayer.position = CGPointMake(44, 100);
+    shipLayer.contents = (__bridge id)[UIImage imageNamed: @"star"].CGImage;
+    [view26.layer addSublayer:shipLayer];
+    
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
+    animation.keyPath = @"position";
+    animation.duration = 4.0;
+    animation.path = bezierPath.CGPath;
+    animation.rotationMode = kCAAnimationRotateAuto;
+    //[shipLayer addAnimation:animation forKey:nil];
+    
+    CABasicAnimation *animation1 = [CABasicAnimation animation];
+    animation1.keyPath = @"transform.rotation";
+    animation1.duration = 4.0;
+    animation1.byValue = @(M_PI * 2);
+    //[shipLayer addAnimation:animation1 forKey:nil];
+    
+    CAAnimationGroup *groupAnimation = [CAAnimationGroup animation];
+    groupAnimation.animations = @[animation, animation1];
+    groupAnimation.duration = 4.0;
+    [shipLayer addAnimation:groupAnimation forKey:nil];
+    
+    
+    [self.scrollView addSubview:view26];
+    self.lastView = view26;
+
+// ********************* CATransition
+    
+    UIView *view27 = [[UIView alloc] init];
+    view27.frame = CGRectMake((CGRectGetWidth(self.view.bounds) - 200) * 0.5, CGRectGetMaxY(self.lastView.frame) + 40, 200, 200);
+    view27.backgroundColor = UIColor.whiteColor;
+    view27.layer.borderColor = UIColor.lightGrayColor.CGColor;
+    view27.layer.borderWidth = 1;
+    UITapGestureRecognizer *recognizer2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(switchImage)];
+    [view27 addGestureRecognizer:recognizer2];
+    
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.backgroundColor = UIColor.lightGrayColor;
+    imageView.frame = CGRectMake(50, 50, 100, 100);
+    self.imageView  = imageView;
+    [view27 addSubview:imageView];
+    
+    self.images = @[
+                    [UIImage imageNamed:@"king"],
+                    [UIImage imageNamed:@"cool"],
+                    [UIImage imageNamed:@"question"],
+                    [UIImage imageNamed:@"test_cup"]
+                    ];
+    
+    [self.scrollView addSubview:view27];
+    self.lastView = view27;
+    
     [self updateScrollViewContentSize];
 }
-
 
 
 
@@ -479,6 +659,92 @@
     
     CGFloat offsetY = self.scrollView.contentSize.height - CGRectGetHeight(self.view.bounds);
     [self.scrollView setContentOffset:CGPointMake(0, offsetY)];
+}
+
+
+
+
+// MARK: ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+- (void)switchImage {
+    //set up crossfade transition
+    CATransition *transition = [CATransition animation];
+    transition.type = kCATransitionFade;
+    //apply transition to imageview backing layer
+    [self.imageView.layer addAnimation:transition forKey:nil];
+    //cycle to next image
+    UIImage *currentImage = self.imageView.image;
+    NSUInteger index = [self.images indexOfObject:currentImage];
+    index = (index + 1) % [self.images count];
+    self.imageView.image = self.images[index];
+}
+
+
+- (void)changeColor1 {
+    /*
+    UIColor *color = [self randomColor];
+    CABasicAnimation *animation = [CABasicAnimation animation];
+    animation.keyPath = @"backgroundColor";
+    animation.toValue = (__bridge id)color.CGColor;
+    animation.delegate = self;
+    //apply animation to layer
+    [self.colorLayer1 addAnimation:animation forKey:nil];
+     */
+    
+    //create a keyframe animation
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
+    animation.keyPath = @"backgroundColor";
+    animation.duration = 2.5;
+    animation.values = @[
+                         (__bridge id)[UIColor blueColor].CGColor,
+                         (__bridge id)[UIColor redColor].CGColor,
+                         (__bridge id)[UIColor greenColor].CGColor,
+                         (__bridge id)[UIColor blueColor].CGColor ];
+    //apply animation to layer
+    [self.colorLayer1 addAnimation:animation forKey:nil];
+}
+
+// MARK: - CAAnimationDelegate
+
+- (void)animationDidStart:(CAAnimation *)anim {
+    
+}
+
+- (void)animationDidStop:(CABasicAnimation *)anim finished:(BOOL)flag {
+    //set the backgroundColor property to match animation toValue
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    self.colorLayer1.backgroundColor = (__bridge CGColorRef)anim.toValue;
+    [CATransaction commit];
+}
+
+- (void)changeColor {
+    /*
+     隐式动画
+     点击按钮，会发现图层的颜色平滑过渡到一个新值，而不是跳变
+     从先前的值平滑过渡到新的值。这一切都是默认的行为，不需要做额外的操作
+     */
+    
+    //begin a new transaction
+    [CATransaction begin];
+    //set the animation duration to 1 second
+    [CATransaction setAnimationDuration:1.0];
+    
+    //add the spin animation on completion
+    [CATransaction setCompletionBlock:^{
+        //rotate the layer 90 degrees
+        CGAffineTransform transform = self.colorLayer.affineTransform;
+        transform = CGAffineTransformRotate(transform, M_PI_2);
+        self.colorLayer.affineTransform = transform;
+    }];
+    
+    //randomize the layer background color
+    self.colorLayer.backgroundColor = [self randomColor].CGColor;
+    self.colorView.layer.backgroundColor = [self randomColor].CGColor;
+    //commit the transaction
+    [CATransaction commit];
 }
 
 - (void)setupCATransformLayer {

@@ -20,6 +20,7 @@
 		BFD684FE227044F200E74DF0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFD684FD227044F200E74DF0 /* OpenGLES.framework */; };
 		BFD68507227055DD00E74DF0 /* LayerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD68506227055DD00E74DF0 /* LayerLabel.m */; };
 		BFD6850A227072E200E74DF0 /* ReflectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD68509227072E200E74DF0 /* ReflectionView.m */; };
+		BFEF9DA8227156C700AAEEC8 /* ScrollLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEF9DA7227156C700AAEEC8 /* ScrollLayerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		BFD68506227055DD00E74DF0 /* LayerLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LayerLabel.m; sourceTree = "<group>"; };
 		BFD68508227072E200E74DF0 /* ReflectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReflectionView.h; sourceTree = "<group>"; };
 		BFD68509227072E200E74DF0 /* ReflectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReflectionView.m; sourceTree = "<group>"; };
+		BFEF9DA6227156C700AAEEC8 /* ScrollLayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollLayerView.h; sourceTree = "<group>"; };
+		BFEF9DA7227156C700AAEEC8 /* ScrollLayerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrollLayerView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +131,8 @@
 				BF4AAD5F2269AE9A007CA090 /* CustomDrawingView.m */,
 				BFD68505227055DD00E74DF0 /* LayerLabel.h */,
 				BFD68506227055DD00E74DF0 /* LayerLabel.m */,
+				BFEF9DA6227156C700AAEEC8 /* ScrollLayerView.h */,
+				BFEF9DA7227156C700AAEEC8 /* ScrollLayerView.m */,
 				BFD4EAC5213E3E86000B6E3E /* Main.storyboard */,
 				BFD4EAC8213E3E8A000B6E3E /* Assets.xcassets */,
 				BFD4EACA213E3E8A000B6E3E /* LaunchScreen.storyboard */,
@@ -295,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFEF9DA8227156C700AAEEC8 /* ScrollLayerView.m in Sources */,
 				BF4AAD602269AE9A007CA090 /* CustomDrawingView.m in Sources */,
 				BFD68507227055DD00E74DF0 /* LayerLabel.m in Sources */,
 				BFD4EAC4213E3E86000B6E3E /* ViewController.m in Sources */,
