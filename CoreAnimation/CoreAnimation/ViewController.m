@@ -45,6 +45,10 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) NSArray *images;
 
+@property (nonatomic, strong) CALayer *doorLayer;
+
+@property (nonatomic, strong) CALayer *colorLayer2;
+
 @property (nonatomic, weak) UIView *lastView;
 
 @end
@@ -649,6 +653,56 @@
     [self.scrollView addSubview:view27];
     self.lastView = view27;
     
+// ********************* 手动动画
+    
+    UIView *view28 = [[UIView alloc] init];
+    view28.frame = CGRectMake(0, CGRectGetMaxY(self.lastView.frame) + 40, CGRectGetWidth(self.view.bounds), 300);
+    view28.backgroundColor = UIColor.cyanColor;
+    
+    self.doorLayer = [CALayer layer];
+    self.doorLayer.frame = CGRectMake(100, 50, 200, 200);
+    self.doorLayer.position = CGPointMake(50, 150);
+    self.doorLayer.anchorPoint = CGPointMake(0, 0.5);
+    self.doorLayer.contents = (__bridge id)[UIImage imageNamed:@"door.png"].CGImage;
+    [view28.layer addSublayer:self.doorLayer];
+    
+    CATransform3D perspective2 = CATransform3DIdentity;
+    perspective2.m34 = -1.0 / 500.0;
+    view28.layer.sublayerTransform = perspective2;
+    
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] init];
+    [pan addTarget:self action:@selector(pandDoor:)];
+    [view28 addGestureRecognizer:pan];
+    
+    self.doorLayer.speed = 0.0;
+    //apply swinging animation (which won't play because layer is paused)
+    CABasicAnimation *animation2 = [CABasicAnimation animation];
+    animation2.keyPath = @"transform.rotation.y";
+    animation2.toValue = @(-M_PI_2);
+    animation2.duration = 1.0;
+    [self.doorLayer addAnimation:animation2 forKey:nil];
+    
+    [self.scrollView addSubview:view28];
+    self.lastView = view28;
+    
+// ********************* 缓冲和关键帧动画
+    
+    UIView *view29 = [[UIView alloc] init];
+    view29.frame = CGRectMake((CGRectGetWidth(self.view.bounds) - 200) * 0.5, CGRectGetMaxY(self.lastView.frame) + 40, 200, 200);
+    view29.backgroundColor = UIColor.whiteColor;
+    view29.layer.borderColor = UIColor.lightGrayColor.CGColor;
+    view29.layer.borderWidth = 1;
+    UITapGestureRecognizer *recognizer3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeColor2)];
+    [view29 addGestureRecognizer:recognizer3];
+    
+    self.colorLayer2 = [CALayer layer];
+    self.colorLayer2.frame = CGRectMake(50.0f, 50.0f, 100.0f, 100.0f);
+    self.colorLayer2.backgroundColor = [UIColor blueColor].CGColor;
+    //add it to our view
+    [view29.layer addSublayer:self.colorLayer2];
+    [self.scrollView addSubview:view29];
+    self.lastView = view29;
+    
     [self updateScrollViewContentSize];
 }
 
@@ -666,19 +720,58 @@
 
 // MARK: ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+- (void)changeColor2 {
+    //create a keyframe animation
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
+    animation.keyPath = @"backgroundColor";
+    animation.duration = 2.0;
+    animation.values = @[
+                         (__bridge id)[UIColor blueColor].CGColor,
+                         (__bridge id)[UIColor redColor].CGColor,
+                         (__bridge id)[UIColor greenColor].CGColor,
+                         (__bridge id)[UIColor blueColor].CGColor ];
+    //add timing function
+    CAMediaTimingFunction *fn = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseIn];
+    animation.timingFunctions = @[fn, fn, fn];
+    //apply animation to layer
+    [self.colorLayer2 addAnimation:animation forKey:nil];
+}
+
+- (void)pandDoor:(UIPanGestureRecognizer *)pan {
+    CGFloat x = [pan translationInView:pan.view].x;
+    //convert from points to animation duration //using a reasonable scale factor
+    x /= 200.0f;
+    //update timeOffset and clamp result
+    CFTimeInterval timeOffset = self.doorLayer.timeOffset;
+    timeOffset = MIN(0.999, MAX(0.0, timeOffset - x));
+    self.doorLayer.timeOffset = timeOffset;
+    //reset pan gesture
+    [pan setTranslation:CGPointZero inView:pan.view];
+}
 
 
 - (void)switchImage {
-    //set up crossfade transition
-    CATransition *transition = [CATransition animation];
-    transition.type = kCATransitionFade;
-    //apply transition to imageview backing layer
-    [self.imageView.layer addAnimation:transition forKey:nil];
-    //cycle to next image
-    UIImage *currentImage = self.imageView.image;
-    NSUInteger index = [self.images indexOfObject:currentImage];
-    index = (index + 1) % [self.images count];
-    self.imageView.image = self.images[index];
+//    //set up crossfade transition
+//    CATransition *transition = [CATransition animation];
+//    transition.type = kCATransitionFade;
+//    //apply transition to imageview backing layer
+//    [self.imageView.layer addAnimation:transition forKey:nil];
+//    //cycle to next image
+//    UIImage *currentImage = self.imageView.image;
+//    NSUInteger index = [self.images indexOfObject:currentImage];
+//    index = (index + 1) % [self.images count];
+//    self.imageView.image = self.images[index];
+    
+    [UIView transitionWithView:self.imageView duration:1.0
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+                        //cycle to next image
+                        UIImage *currentImage = self.imageView.image;
+                        NSUInteger index = [self.images indexOfObject:currentImage];
+                        index = (index + 1) % [self.images count];
+                        self.imageView.image = self.images[index];
+                    }
+                    completion:NULL];
 }
 
 
